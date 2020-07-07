@@ -1,0 +1,24 @@
+---
+title: 'Leaflet : Maps'
+author: "Vedant Mane"
+date: "July 7, 2020"
+output: html_document
+---
+
+```{r leaflet, echo=FALSE, warning=FALSE, message=FALSE}
+library(leaflet)
+library(dplyr)
+data <- data.frame(
+      name = c("Mumbai", "Delhi", "Bengaluru", "Chennai", "Kolkata"),
+      lat = c(19.0790, 28.7041, 12.9716, 13.0827, 22.5726),
+      lng = c(72.8777, 77.1025, 77.5946, 80.2707, 88.3639),
+      pop = c(18.4, 19, 8.43, 7.09, 14.9),
+      col = c("orangered", "blue", "olive", "purple", "salmon")
+)
+data %>%
+      leaflet() %>%
+      addTiles() %>%
+      addCircleMarkers(color = data$col, radius = (data$pop^1.25), 
+                       weight = 5, opacity = 100, 
+                       popup = paste("<b>", data$name, "</b>","<br>","Population(in million) : ", data$pop))
+```
